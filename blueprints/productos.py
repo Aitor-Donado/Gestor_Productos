@@ -3,6 +3,11 @@ from sqlalchemy.exc import SQLAlchemyError
 from extensions import db
 from models.producto import Producto
 
+# Protección de rutas con JWT
+from flask_jwt_extended import jwt_required
+
+
+
 productos_bp = Blueprint('productos', __name__)
 
 def validate_producto_data(data, required_fields=None):
@@ -91,6 +96,7 @@ def obtener_producto(id):
 
 # POST - Crear nuevo producto
 @productos_bp.route('/productos', methods=['POST'])
+@jwt_required()
 def crear_producto():
     try:
         data = request.get_json()

@@ -969,3 +969,35 @@ curl -X POST http://localhost:5000/auth/logout \
   -H 'Authorization: Bearer <tu_token_aqui>' \
   -H 'Content-Type: application/json'
 ```
+
+### Si protejo la ruta de añadir un nuevo producto a la base de datos:
+
+En `blueprints/productos.py`
+
+```bash
+from flask_jwt_extended import jwt_required  # Añadir esta importación
+
+...
+
+# POST - Crear nuevo producto
+@productos_bp.route('/productos', methods=['POST'])
+@jwt_required() ### <---- Añadir el decorador aquí
+def crear_producto():
+    try:
+        ...
+```
+
+…y tendré que hacer la petición POST así (poniéndole el token):
+
+```bash
+curl -X POST http://localhost:5000/api/productos \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <tu_token_jwt_aqui>" \
+  -d '{
+    "nombre": "Teclado Mecánico",
+    "precio": 75.5,
+    "descripcion": "Teclado gaming con switches azules",
+    "categoria": "Periféricos",
+    "stock": 10
+  }'
+```
