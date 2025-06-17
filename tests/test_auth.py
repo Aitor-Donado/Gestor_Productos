@@ -9,7 +9,8 @@ def client():
     app.config.update({
         'TESTING': True,
         'SQLALCHEMY_DATABASE_URI': 'sqlite:///:memory:',
-        'JWT_SECRET_KEY': 'test-secret-key'
+        'SQLALCHEMY_TRACK_MODIFICATIONS': False,
+        'JWT_SECRET_KEY': 'test-key'
     })
 
     with app.test_client() as client:
