@@ -20,8 +20,8 @@ def client():
 
 def test_register_user(client):
     res = client.post('/auth/register', json={
-        "username": "testuser2",
-        "email": "test2@example.com",
+        "username": "testuser5",
+        "email": "test5@example.com",
         "password": "123456",
         "nombre": "Nombre",
         "apellido": "Apellido"
@@ -54,12 +54,12 @@ def test_get_current_user_requires_auth(client):
 def test_get_current_user_with_token(client):
     # Registrar y loguear para obtener token
     client.post('/auth/register', json={
-        "username": "testuser",
-        "email": "test@example.com",
+        "username": "testuser3",
+        "email": "test3@example.com",
         "password": "123456"
     })
     login_res = client.post('/auth/login', json={
-        "username": "testuser",
+        "username": "testuser3",
         "password": "123456"
     })
     token = login_res.get_json()['access_token']
